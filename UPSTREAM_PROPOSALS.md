@@ -9,7 +9,7 @@ The vendor clones were not modified. Each item says what the kit does now and wh
    - Fix: log under `config.state_dir`, or to stderr unless `--log-file` is given.
 2. **No `.gitignore`.** A careless `git add -A` after running the tests stages that junk. The kit's hook blocked it in the trial (`a-commit-junk.txt`).
    - Fix: add `.gitignore` with `__pycache__/`, `*.pyc`, `production_doctor.log`, `.python_doctor/`, `.pytest_cache/`.
-3. **The root `python_doctor.yaml` is an example for another project.** It includes `tools/*.py` and `test/*.py`, so it scans 0 of the repo's 54 Python files.
+3. **The root `python_doctor.yaml` is an example for another project.** It includes `tools/*.py` and `test/*.py`, so it scans 0 of the repo's 20 tracked Python files.
    - Kit now: trusts only `kit.json` `debug.config` or `.somnus-debug/python_doctor.yaml`.
    - Fix: rename the root file to `python_doctor.example.yaml`, or point its include patterns at `src/**/*.py`.
 4. **No library entry point.** `somnus_debug.doctor` re-exports only `main`.
