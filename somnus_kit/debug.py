@@ -8,6 +8,7 @@ never installs that handler, so nothing lands in the repo.
 
 from __future__ import annotations
 
+import warnings
 from collections import Counter
 from pathlib import Path
 from typing import Optional
@@ -24,7 +25,10 @@ def available() -> bool:
 
 def find_config(root: Path, manifest: dict) -> Optional[Path]:
     rel = (manifest.get("debug") or {}).get("config")
-    for cand in ([rel] if rel else []) + [".somnus-debug/python_doctor.yaml", "python_doctor.yaml"]:
+    # Only an explicit kit.json path or the somnus-github-development baseline location. A root
+    # python_doctor.yaml is not trusted: somnus-debug's own root copy is an example for another project
+    # (include tools/*.py) and scans 0 files of its repo.
+    for cand in ([rel] if rel else []) + [".somnus-debug/python_doctor.yaml"]:
         p = Path(root) / cand
         if p.is_file():
             return p
@@ -43,7 +47,9 @@ def scan(root: Path, config: Optional[Path] = None) -> dict:
     if core is None:
         raise RuntimeError(f"somnus_debug not importable: {libs.error('somnus_debug.doctor.core')}")
     cm = core.ConfigManager(config)
-    result = core.ProjectScanner(Path(root), cm).scan({})
+    with warnings.catch_warnings():  # compile() of target sources emits SyntaxWarning noise to stderr
+        warnings.simplefilter("ignore", SyntaxWarning)
+        result = core.ProjectScanner(Path(root), cm).scan({})
     issues: dict[str, list[str]] = {}
     for f in result.files:
         if f.issues:

@@ -118,7 +118,8 @@ def check_scope(ctx: Ctx) -> Check:
         c.detail = f"no session; {len(changed)} changed, scope not enforced"
     else:
         for p in outside:
-            c.worsen(FAIL, f"{p}: outside scope {s['scope']['declared']} and its impact set", p)
+            c.worsen(FAIL, f"{p}: outside scope ({len(s['scope']['declared'])} declared path(s) + "
+                     f"{len(s['scope']['allowed'])} in the impact set; see session {s['id']})", p)
         inside = len(changed) - len(outside) - len(exempt)
         c.detail = (f"session {s['id']}: {inside} in scope, {len(exempt)} exempt (living/kit-maintained), "
                     f"{len(outside)} outside")
@@ -221,7 +222,7 @@ def check_metadata(ctx: Ctx, scratch: Path) -> Check:
     checked = 0
     for path in ctx.cs.added():
         text = ctx.cs.new.text(path)
-        if not pol.requires(path, text):
+        if path in ctx.kit_maintained or not pol.requires(path, text):
             continue
         checked += 1
         side = ctx.cs.new.text(path + ".somnus.yaml")
@@ -259,6 +260,11 @@ def check_debug(ctx: Ctx, scratch_old: Path, scratch_new: Path) -> Check:
     new_root = ctx.cs.new.materialize(scratch_new)
     cur = debug.scan(new_root, debug.find_config(new_root, ctx.man))
     r = debug.regressions(base, cur, py)
+    scanned = set(cur.get("files", []))
+    uncovered = [p for p in py if p not in scanned and ctx.cs.new.read(p) is not None]
+    if uncovered:
+        c.worsen(WARN, f"{len(uncovered)} changed Python file(s) outside the doctor's include/ignore config: "
+                 + ", ".join(uncovered[:5]))
     for line in r["fail"]:
         c.worsen(FAIL, line)
     for line in r["warn"]:
