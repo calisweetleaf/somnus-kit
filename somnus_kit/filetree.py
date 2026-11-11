@@ -1,101 +1,15 @@
-"""filetree.md generation and drift detection (stdlib only).
+"""filetree.md parsing and drift, plus WIKI translation staleness (stdlib only).
 
-Generated tree uses the same box-drawing format as Daeron's filetree.md files, so a
-curated root filetree.md can be parsed back into a path set and compared.
+parse_tree reads the FIRST fenced tree block of Daeron's box-drawing filetree.md (later blocks hold
+baselines and proposals). Staleness follows somnus-github-development's wiki_sync rule: a
+translation's `source_sha256` must equal sha256 of the WIKI.md body after the first `-->`
+(v1 exact bytes, or v2 with BOM stripped and newlines normalized).
 """
 
 from __future__ import annotations
 
-import fnmatch
+import hashlib
 import re
-import subprocess
-from pathlib import Path
-
-ROLE_GLYPHS = {
-    # ø operator, ○ living memory, ♤ reader-facing (somnus-github-development convention)
-    "AGENTS.md": "ø", "PLAN.md": "ø", "TASK.md": "ø", "SCOPE.md": "ø",
-    "ARCHITECTURE_MAP.md": "○", "CONTEXT.md": "○", "DECISIONS.md": "○", "MEMORY.md": "○",
-    "NOTEPAD.md": "○", "STATE.md": "○",
-    "README.md": "♤", "SPEC.md": "♤", "ARCHITECTURE.md": "♤", "DEVELOPMENT_SETUP.md": "♤",
-    "filetree.md": "♤", "WIKI.md": "♤",
-}
-
-DEFAULT_EXCLUDES = [
-    ".git", ".git/**", "**/__pycache__", "**/__pycache__/**", "*.pyc", "**/*.pyc", ".venv", ".venv/**",
-    "venv/**", "node_modules", "**/node_modules/**", "*.egg-info", "**/*.egg-info/**", "build/**",
-    "dist/**", ".pytest_cache/**", ".mypy_cache/**", ".ruff_cache/**", "runs/**",
-    # runtime state of the kit and its tools: volatile, never part of the visible inventory
-    ".somnus-kit/**", ".plot/**", ".python_doctor/**", ".somnus-debug/runs/**", "production_doctor.log",
-    "**/production_doctor.log",
-]
-
-
-def _excluded(rel: str, patterns: list[str]) -> bool:
-    for pat in patterns:
-        if fnmatch.fnmatch(rel, pat):
-            return True
-        if pat.endswith("/**") and (rel == pat[:-3] or rel.startswith(pat[:-3] + "/")):
-            return True
-    return False
-
-
-def list_files(root: Path, excludes: list[str] | None = None) -> list[str]:
-    patterns = DEFAULT_EXCLUDES + list(excludes or [])
-    files: list[str] = []
-    if (root / ".git").exists():
-        proc = subprocess.run(["git", "ls-files", "--cached", "--others", "--exclude-standard"],
-                              cwd=root, capture_output=True, text=True)
-        if proc.returncode == 0:
-            files = [ln for ln in proc.stdout.splitlines() if ln]
-    if not files:
-        for p in sorted(root.rglob("*")):
-            if p.is_file() or p.is_symlink():
-                files.append(p.relative_to(root).as_posix())
-    return sorted({f for f in files if not _excluded(f, patterns)})
-
-
-def render_tree(paths: list[str], *, glyphs: bool = True) -> str:
-    tree: dict = {}
-    for rel in paths:
-        node = tree
-        parts = rel.split("/")
-        for part in parts[:-1]:
-            node = node.setdefault(part + "/", {})
-        node.setdefault(parts[-1], None)
-
-    lines: list[str] = []
-
-    def key(name: str):
-        return (0 if name.endswith("/") else 1, name.lower())
-
-    def walk(node: dict, prefix: str, depth: int) -> None:
-        names = sorted(node, key=key)
-        for i, name in enumerate(names):
-            last = i == len(names) - 1
-            branch = "└── " if last else "├── "
-            label = name
-            if glyphs and depth == 0 and name in ROLE_GLYPHS:
-                label = f"{name:<26}{ROLE_GLYPHS[name]}"
-            lines.append(prefix + branch + label)
-            child = node[name]
-            if isinstance(child, dict):
-                walk(child, prefix + ("    " if last else "│   "), depth + 1)
-
-    walk(tree, "", 0)
-    return "\n".join(lines)
-
-
-def render_document(paths: list[str], project: str) -> str:
-    return (
-        f"# {project} file tree\n\n"
-        "Visible inventory of material that belongs in this repository. Volatile runtime state "
-        "(`.somnus-kit/`, `.plot/`, `.python_doctor/`, doctor runs) is excluded.\n\n"
-        "```text\n" + render_tree(paths) + "\n```\n\n"
-        "- **ø** Operator documents. Return through `AGENTS.md` as the semantic router for each work loop.\n"
-        "- **○** Living repository memory.\n"
-        "- **♤** Reader-facing documentation.\n"
-    )
-
 
 _ENTRY = re.compile(r"^(?P<indent>(?:│   |    |\|   )*)(?:├── |└── |\|-- |`-- )(?P<name>.+?)\s*$")
 
@@ -125,12 +39,36 @@ def parse_tree(markdown: str) -> set[str]:
     return out
 
 
-def drift(root: Path, curated: Path, excludes: list[str] | None = None) -> dict:
-    actual = set(list_files(root, excludes))
-    listed = parse_tree(curated.read_text(encoding="utf-8")) if curated.exists() else set()
-    return {
-        "listed": len(listed),
-        "actual": len(actual),
-        "missing_from_filetree": sorted(actual - listed),
-        "listed_but_absent": sorted(listed - actual),
-    }
+
+def wiki_body(text: str) -> str:
+    i = text.find("-->")
+    return text[i + 3:] if i >= 0 else text
+
+
+def body_hashes(text: str) -> set[str]:
+    body = wiki_body(text)
+    v2 = body.lstrip("\ufeff").replace("\r\n", "\n").replace("\r", "\n")
+    return {hashlib.sha256(body.encode("utf-8")).hexdigest(), hashlib.sha256(v2.encode("utf-8")).hexdigest()}
+
+
+_SHA = re.compile(r"source_sha256:\s*([0-9a-f]{64})")
+TRANSLATION = re.compile(r"^(?P<dir>(?:.*/)?)WIKI\.(?P<lang>[A-Za-z]{2,3}(?:[-_][A-Za-z0-9]+)?)\.md$")
+
+
+def stale_translations(files: dict[str, str]) -> list[tuple[str, str]]:
+    """files: path -> text for WIKI*.md in a tree. Returns (translation, reason) for each stale one."""
+    out = []
+    for path, text in sorted(files.items()):
+        m = TRANSLATION.match(path)
+        if not m:
+            continue
+        src = m.group("dir") + "WIKI.md"
+        if src not in files:
+            out.append((path, f"source {src} missing"))
+            continue
+        rec = _SHA.search(text)
+        if not rec:
+            out.append((path, "no source_sha256"))
+        elif rec.group(1) not in body_hashes(files[src]):
+            out.append((path, f"source_sha256 does not match {src} body"))
+    return out
