@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "somnus-kit"
+version = "0.2.0"
+description = "Repo guard for agent work: brief, verify, hooks, fleet. State lives out of tree."
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+# somnus-metadata and somnus-debug are imported as libraries when present; without them checks (d)/(e)
+# report NOT_RUN and header tags are not read for roles.
+libs = ["somnus-metadata>=2.2", "somnus-debug>=0.1"]
+
+[project.scripts]
+somnus-kit = "somnus_kit.cli:main"
+
+[tool.setuptools]
+packages = ["somnus_kit"]
