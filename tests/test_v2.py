@@ -176,6 +176,13 @@ class UnitTests(unittest.TestCase):
         self.assertEqual(agents.strip(once), "# A\n\nkeep me\n")
         self.assertEqual(agents.extract(once), agents.render(man))
 
+    def test_agents_section_template_in_sync(self):
+        import copy
+        m = copy.deepcopy(M.DEFAULTS)
+        m["ownership"] = {M.KIT_JSON: {"owner": "somnus-kit", "class": "config"},
+                          "AGENTS.md#somnus-kit": {"owner": "somnus-kit", "class": "region"}}
+        self.assertEqual((KIT / "templates" / "AGENTS_SECTION.md").read_text(encoding="utf-8"), agents.render(m) + "\n")
+
     def test_adapter_texts_are_pointers(self):
         self.assertTrue(agents.ADAPTERS["claude"]["text"].startswith("@AGENTS.md\n"))
         self.assertEqual(len([l for l in agents.ADAPTERS["claude"]["text"].splitlines() if l.strip()]), 2)

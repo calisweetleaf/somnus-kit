@@ -34,7 +34,7 @@ DEFAULTS: dict[str, Any] = {
     "generated": [],
     "metadata": {"require_on_new": True, "severity": "FAIL"},
     "debug": {"enabled": True, "config": None},
-    "docgate": {"private_terms": [], "max_placeholder": 0},
+    "docgate": {"private_terms": [], "max_placeholder": 0, "pass_status": "WARN"},
     "adapters": {"claude": False, "copilot": False},
     "cartographer": {"profile": "auto", "path": None},
     "ownership": {},
@@ -78,6 +78,8 @@ def from_data(data: Any) -> dict:
     for role in merged["roles"]["overrides"].values():
         if role not in ("ø", "○", "♤", "none"):
             raise ManifestError(f"{KIT_JSON}: roles.overrides values must be one of ø ○ ♤ none, got {role!r}")
+    if merged["docgate"].get("pass_status") not in ("PASS", "WARN"):
+        raise ManifestError(f"{KIT_JSON}: docgate.pass_status must be PASS or WARN")
     if merged["metadata"]["severity"] not in ("FAIL", "WARN"):
         raise ManifestError(f"{KIT_JSON}: metadata.severity must be FAIL or WARN")
     for key in ("protected", "generated"):

@@ -38,6 +38,7 @@ test_new_test_for_scoped_module_allowed (test_v2.ScopeCheck.test_new_test_for_sc
 test_out_of_scope_fails_with_session (test_v2.ScopeCheck.test_out_of_scope_fails_with_session) ... ok
 test_range_without_session_warns (test_v2.ScopeCheck.test_range_without_session_warns) ... ok
 test_adapter_texts_are_pointers (test_v2.UnitTests.test_adapter_texts_are_pointers) ... ok
+test_agents_section_template_in_sync (test_v2.UnitTests.test_agents_section_template_in_sync) ... ok
 test_agents_upsert_idempotent_and_preserves_operator_text (test_v2.UnitTests.test_agents_upsert_idempotent_and_preserves_operator_text) ... ok
 test_docgate (test_v2.UnitTests.test_docgate) ... ok
 test_filetree_parse_and_translation_staleness (test_v2.UnitTests.test_filetree_parse_and_translation_staleness) ... ok
@@ -49,7 +50,7 @@ test_role_convention_and_override (test_v2.UnitTests.test_role_convention_and_ov
 test_role_from_metadata_header (test_v2.UnitTests.test_role_from_metadata_header) ... ok
 
 ----------------------------------------------------------------------
-Ran 49 tests in 1.905s
+Ran 50 tests in 1.948s
 
 OK
 exit=0
