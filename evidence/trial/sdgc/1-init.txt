@@ -1,0 +1,6 @@
+$ /workspace/work/ghdev/research/setup-kit/.venv/bin/python /workspace/work/ghdev/evo/kit/bin/somnus-kit init /workspace/work/ghdev/evo/kit/trials/sdgc --adapters claude --cartographer /workspace/work/ghdev/evo/cartographer
+somnus-kit init: /workspace/work/ghdev/evo/kit/trials/sdgc (sdgc-343e56da)
+written in tree: .somnus-kit/kit.json, .somnus.toml, AGENTS.md, CLAUDE.md
+cartographer model: built (sdgc) -> /workspace/work/ghdev/evo/kit/trials/home/models/sdgc-343e56da
+debug baseline: /workspace/work/ghdev/evo/kit/trials/home/debug/sdgc-343e56da/init.json {"files_scanned": 42, "total_issues": 295, "critical_issues": 0, "serious_issues": 30, "minor_issues": 265, "info_issues": 0, "syntax_error_files": 0, "missing_imports": 1, "dependency_cycles": 0, "production_score": 0}
+exit=0

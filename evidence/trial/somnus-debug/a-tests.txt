@@ -1,0 +1,22 @@
+$ bash -c cd '/workspace/work/ghdev/evo/kit/trials/somnus-debug' && '/workspace/work/ghdev/research/setup-kit/.venv/bin/python' -m pytest -q -p no:cacheprovider
+...........                                                              [100%]
+=============================== warnings summary ===============================
+run_test.py:122
+  /workspace/work/ghdev/evo/kit/trials/somnus-debug/run_test.py:122: PytestCollectionWarning: cannot collect test class 'TestOutcome' because it has a __init__ constructor (from: run_test.py)
+    @dataclass
+
+run_test.py:142
+  /workspace/work/ghdev/evo/kit/trials/somnus-debug/run_test.py:142: PytestCollectionWarning: cannot collect test class 'TestContext' because it has a __init__ constructor (from: run_test.py)
+    @dataclass(frozen=True)
+
+src/somnus_debug/test_harness/templates/run_test.py:122
+  /workspace/work/ghdev/evo/kit/trials/somnus-debug/src/somnus_debug/test_harness/templates/run_test.py:122: PytestCollectionWarning: cannot collect test class 'TestOutcome' because it has a __init__ constructor (from: src/somnus_debug/test_harness/templates/run_test.py)
+    @dataclass
+
+src/somnus_debug/test_harness/templates/run_test.py:142
+  /workspace/work/ghdev/evo/kit/trials/somnus-debug/src/somnus_debug/test_harness/templates/run_test.py:142: PytestCollectionWarning: cannot collect test class 'TestContext' because it has a __init__ constructor (from: src/somnus_debug/test_harness/templates/run_test.py)
+    @dataclass(frozen=True)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+11 passed, 4 warnings in 1.60s
+exit=0

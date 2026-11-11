@@ -1,0 +1,6 @@
+$ /workspace/work/ghdev/research/setup-kit/.venv/bin/python /workspace/work/ghdev/evo/kit/bin/somnus-kit init /workspace/work/ghdev/evo/kit/trials/somnus-debug --adapters claude --cartographer /workspace/work/ghdev/evo/cartographer
+somnus-kit init: /workspace/work/ghdev/evo/kit/trials/somnus-debug (calisweetleaf__somnus-debug)
+written in tree: .somnus-kit/kit.json, .somnus.toml, AGENTS.md, CLAUDE.md
+cartographer model: built (generic) -> /workspace/work/ghdev/evo/kit/trials/home/models/calisweetleaf__somnus-debug
+debug baseline: /workspace/work/ghdev/evo/kit/trials/home/debug/calisweetleaf__somnus-debug/init.json {"files_scanned": 20, "total_issues": 289, "critical_issues": 0, "serious_issues": 92, "minor_issues": 197, "info_issues": 0, "syntax_error_files": 0, "missing_imports": 0, "dependency_cycles": 0, "production_score": 0}
+exit=0

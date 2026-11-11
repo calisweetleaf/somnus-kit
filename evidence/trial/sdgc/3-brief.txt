@@ -1,0 +1,39 @@
+$ /workspace/work/ghdev/research/setup-kit/.venv/bin/python /workspace/work/ghdev/evo/kit/bin/somnus-kit brief /workspace/work/ghdev/evo/kit/trials/sdgc --task fix scanner following symlinks before excludes --cartographer /workspace/work/ghdev/evo/cartographer
+# somnus-kit brief  session 20261111T071833Z-f937fa
+
+task: fix scanner following symlinks before excludes
+repo: /workspace/work/ghdev/evo/kit/trials/sdgc (sdgc-343e56da)  head: 65ee8694113b
+
+## Scope (context-pack)
+
+- `src/sdgc/scanner.py`
+
+## Impact (cartographer)
+
+- importers: `src/sdgc/cli.py`, `src/sdgc/compiler.py`, `tests/test_concept_graph.py`, `tests/test_scanner.py`, `tests/test_validators.py`
+- tests: `tests/test_concept_graph.py`, `tests/test_generators.py`, `tests/test_scanner.py`, `tests/test_tracking.py`, `tests/test_validators.py`
+- docs: `ARCHITECTURE.md`
+- packages: `somnus-discovery-graph-compiler`
+
+## Rules for this repo
+
+- ø operator, read-only: `AGENTS.md`
+- ○ living, keep current: `STATE.md`
+- ♤ public, doc gate: `ARCHITECTURE.md`, `README.md`, `tests/fixtures/mini_project/README.md`
+- protected: `.somnus-kit/kit.json`, `.somnus.toml`, `.github/workflows/**`
+- generated, never hand-edit: `CLAUDE.md`
+- new files need a somnus header: `somnus stamp PATH --write`
+- before stopping: `somnus-kit verify .` (FAIL = stop)
+
+# Context pack
+task: fix scanner following symlinks before excludes
+
+## Open next
+1. `src/sdgc/scanner.py` — path match
+
+## Docs & skills
+- ARCHITECTURE.md — `ARCHITECTURE.md`
+- FAILURE_GRAMMAR.md — `FAILURE_GRAMMAR.md`
+
+session file: /workspace/work/ghdev/evo/kit/trials/home/sessions/sdgc-343e56da/20261111T071833Z-f937fa.json
+exit=0

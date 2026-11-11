@@ -1,0 +1,28 @@
+$ bash -c cd '/workspace/work/ghdev/evo/kit/trials/somnus-debug' && git add -A && git -c user.name=trial -c user.email=trial@local commit -m 'fix plus junk'
+somnus-kit verify: FAIL  (staged: commit 623dae7eaa70 -> index (staged), session 20261111T071847Z-37d985)
+changed: 16 file(s)
+
+[FAIL   ] (a) scope: session 20261111T071847Z-37d985: 1 in scope, 0 exempt (living/kit-maintained), 15 outside
+            FAIL: __pycache__/run_test.cpython-312-pytest-9.2.0.pyc: outside scope (6 declared path(s) + 19 in the impact set; see session 20261111T071847Z-37d985)
+            FAIL: production_doctor.log: outside scope (6 declared path(s) + 19 in the impact set; see session 20261111T071847Z-37d985)
+            FAIL: src/somnus_debug/__pycache__/__init__.cpython-312.pyc: outside scope (6 declared path(s) + 19 in the impact set; see session 20261111T071847Z-37d985)
+            FAIL: src/somnus_debug/__pycache__/cli.cpython-312.pyc: outside scope (6 declared path(s) + 19 in the impact set; see session 20261111T071847Z-37d985)
+            FAIL: src/somnus_debug/doctor/__pycache__/__init__.cpython-312.pyc: outside scope (6 declared path(s) + 19 in the impact set; see session 20261111T071847Z-37d985)
+            FAIL: src/somnus_debug/doctor/__pycache__/core.cpython-312.pyc: outside scope (6 declared path(s) + 19 in the impact set; see session 20261111T071847Z-37d985)
+            FAIL: src/somnus_debug/pycache_cleaner/__pycache__/__init__.cpython-312.pyc: outside scope (6 declared path(s) + 19 in the impact set; see session 20261111T071847Z-37d985)
+            FAIL: src/somnus_debug/pycache_cleaner/__pycache__/core.cpython-312.pyc: outside scope (6 declared path(s) + 19 in the impact set; see session 20261111T071847Z-37d985)
+            FAIL: src/somnus_debug/structure/__pycache__/__init__.cpython-312.pyc: outside scope (6 declared path(s) + 19 in the impact set; see session 20261111T071847Z-37d985)
+            FAIL: src/somnus_debug/structure/__pycache__/core.cpython-312.pyc: outside scope (6 declared path(s) + 19 in the impact set; see session 20261111T071847Z-37d985)
+            FAIL: src/somnus_debug/test_harness/__pycache__/__init__.cpython-312.pyc: outside scope (6 declared path(s) + 19 in the impact set; see session 20261111T071847Z-37d985)
+            FAIL: src/somnus_debug/test_harness/__pycache__/scaffold.cpython-312.pyc: outside scope (6 declared path(s) + 19 in the impact set; see session 20261111T071847Z-37d985)
+            FAIL: src/somnus_debug/test_harness/templates/__pycache__/__init__.cpython-312.pyc: outside scope (6 declared path(s) + 19 in the impact set; see session 20261111T071847Z-37d985)
+            FAIL: src/somnus_debug/test_harness/templates/__pycache__/run_test.cpython-312-pytest-9.2.0.pyc: outside scope (6 declared path(s) + 19 in the impact set; see session 20261111T071847Z-37d985)
+            FAIL: tests/__pycache__/test_cli_smoke.cpython-312-pytest-9.2.0.pyc: outside scope (6 declared path(s) + 19 in the impact set; see session 20261111T071847Z-37d985)
+[PASS   ] (b) roles: ø 0, ○ 0, ♤ 0 changed
+[PASS   ] (c) generated: no generated or owned files touched
+[PASS   ] (d) metadata: 0 new file(s) require a header; 0 missing or invalid
+[PASS   ] (e) debug: vs session baseline 20261111T071847Z-37d985.json: critical 0->0, serious 92->92, total 289->289, cycles 0->0
+[SKIP   ] (f) drift: no filetree.md and no WIKI*.md
+[PASS   ] (g) protected: 0 protected path(s) touched of 3 pattern(s)
+somnus-kit: commit blocked (verify exit 1). Fix the FAIL items above; do not use --no-verify.
+exit=1

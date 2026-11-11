@@ -1,0 +1,39 @@
+$ env -u SOMNUS_CARTOGRAPHER /workspace/work/ghdev/research/setup-kit/.venv/bin/python /workspace/work/ghdev/evo/kit/bin/somnus-kit brief /workspace/work/ghdev/evo/kit/trials/somnus-debug --task fix doctor file index following symlinks before ignore patterns --cartographer /nonexistent
+# somnus-kit brief  session 20261111T071857Z-fb93ea
+
+task: fix doctor file index following symlinks before ignore patterns
+repo: /workspace/work/ghdev/evo/kit/trials/somnus-debug (calisweetleaf__somnus-debug)  head: 03c0e52272a1
+
+## Scope (context-pack)
+
+- `python_production_doctor.py`
+- `python_doctor.yaml`
+- `skills/somnus-debug-fieldkit/scripts/selftest.py`
+- `src/somnus_debug/doctor/core.py`
+
+## Impact (kit-stand-in)
+
+- importers: `src/somnus_debug/cli.py`, `src/somnus_debug/doctor/__init__.py`
+- docs: `README.md`, `docs/AGENTS_APPENDIX.md`, `docs/MANUAL.md`, `docs/PUBLISHING.md`, `docs/Python_Doctor_QUICKSTART.md`, `skills/somnus-debug-fieldkit/README.md`, `skills/somnus-debug-fieldkit/SKILL.md`, `skills/somnus-debug-fieldkit/references/automation.md`, `skills/somnus-debug-fieldkit/references/commands.md`, `skills/somnus-debug-fieldkit/references/doctor-loop.md`, `skills/somnus-debug-fieldkit/references/findings.md`, `skills/somnus-debug-fieldkit/references/install.md`, `skills/somnus-debug-fieldkit/references/onboarding.md`, `skills/somnus-debug-fieldkit/references/provenance.md`, `skills/somnus-debug-fieldkit/references/topology.md`
+
+## Rules for this repo
+
+- ø operator, read-only: `AGENTS.md`
+- ○ living, keep current: none found
+- ♤ public, doc gate: `README.md`, `skills/somnus-debug-fieldkit/README.md`
+- protected: `.somnus-kit/kit.json`, `.somnus.toml`, `.github/workflows/**`
+- generated, never hand-edit: `CLAUDE.md`
+- new files need a somnus header: `somnus stamp PATH --write`
+- before stopping: `somnus-kit verify .` (FAIL = stop)
+
+# Context pack (kit stand-in)
+task: fix doctor file index following symlinks before ignore patterns
+
+## Open next
+1. `python_production_doctor.py` (path match: doctor)
+2. `python_doctor.yaml` (path match: doctor)
+3. `skills/somnus-debug-fieldkit/scripts/selftest.py` (content match: doctor,file,index,symlink,ignore,pattern)
+4. `src/somnus_debug/doctor/core.py` (content match: doctor,file,index,symlink,ignore,pattern)
+
+session file: /workspace/work/ghdev/evo/kit/trials/home/sessions/calisweetleaf__somnus-debug/20261111T071857Z-fb93ea.json
+exit=0
