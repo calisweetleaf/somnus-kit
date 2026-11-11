@@ -137,7 +137,8 @@ python -m unittest discover -s tests -v                       # 50 cases
 PY=/path/to/python-with-libs bash trial_v2.sh                 # end-to-end on SDGC and somnus-debug copies
 ```
 
-Evidence from the last run is in `evidence/`.
+Trial evidence (`evidence/`) is kept in the working tree and is git-ignored: it contains
+outputs from runs against private repositories. Run `bash trial_v2.sh` to reproduce it.
 
 ## Limits
 

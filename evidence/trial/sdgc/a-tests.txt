@@ -1,3 +1,0 @@
-$ bash -c cd '/workspace/work/ghdev/evo/kit/trials/sdgc' && '/workspace/work/ghdev/research/setup-kit/.venv/bin/python' -m pytest -q -p no:cacheprovider
-................                                                         [100%]
-exit=0

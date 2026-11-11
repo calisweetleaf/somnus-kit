@@ -1,4 +1,0 @@
-?? .somnus-kit/kit.json
-?? .somnus.toml
-?? AGENTS.md
-?? CLAUDE.md
