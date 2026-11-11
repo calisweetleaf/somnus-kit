@@ -1,0 +1,55 @@
+test_explicit_scope_and_end (test_v2.BriefTests.test_explicit_scope_and_end) ... ok
+test_fallback_scope_and_impact (test_v2.BriefTests.test_fallback_scope_and_impact) ... ok
+test_exit_codes (test_v2.CliTests.test_exit_codes) ... ok
+test_verify_writes_report_out_of_tree (test_v2.CliTests.test_verify_writes_report_out_of_tree) ... ok
+test_clean_change_passes_staged (test_v2.DebugCheck.test_clean_change_passes_staged) ... ok
+test_no_python_change_skips (test_v2.DebugCheck.test_no_python_change_skips) ... ok
+test_stub_regression_fails (test_v2.DebugCheck.test_stub_regression_fails) ... ok
+test_filetree_drift_warns (test_v2.DriftCheck.test_filetree_drift_warns) ... ok
+test_nothing_to_check_skips (test_v2.DriftCheck.test_nothing_to_check_skips) ... ok
+test_stale_translation_warns (test_v2.DriftCheck.test_stale_translation_warns) ... ok
+test_status_and_check (test_v2.FleetTests.test_status_and_check) ... ok
+test_adapter_hand_edit_fails_and_regen_passes (test_v2.GeneratedCheck.test_adapter_hand_edit_fails_and_regen_passes) ... ok
+test_declared_generated_glob_fails (test_v2.GeneratedCheck.test_declared_generated_glob_fails) ... ok
+test_generated_marker_warns (test_v2.GeneratedCheck.test_generated_marker_warns) ... ok
+test_region_hand_edit_fails (test_v2.GeneratedCheck.test_region_hand_edit_fails) ... ok
+test_install_chains_and_blocks (test_v2.HooksTests.test_install_chains_and_blocks) ... ok
+test_respects_existing_hooks_path (test_v2.HooksTests.test_respects_existing_hooks_path) ... ok
+test_callers_installed_and_owned (test_v2.InitPlacement.test_callers_installed_and_owned) ... ok
+test_existing_claude_md_not_clobbered (test_v2.InitPlacement.test_existing_claude_md_not_clobbered) ... ok
+test_only_allowed_files_written (test_v2.InitPlacement.test_only_allowed_files_written) ... ok
+test_reinit_is_idempotent (test_v2.InitPlacement.test_reinit_is_idempotent) ... ok
+test_excluded_path_not_required (test_v2.MetadataCheck.test_excluded_path_not_required) ... ok
+test_new_file_without_header_fails (test_v2.MetadataCheck.test_new_file_without_header_fails) ... ok
+test_severity_warn_override (test_v2.MetadataCheck.test_severity_warn_override) ... ok
+test_stamped_new_file_passes (test_v2.MetadataCheck.test_stamped_new_file_passes) ... ok
+test_no_toml_skips (test_v2.MetadataSkip.test_no_toml_skips) ... ok
+test_debug_missing_is_not_run_not_pass (test_v2.MissingLibs.test_debug_missing_is_not_run_not_pass) ... ok
+test_kit_json_protected (test_v2.ProtectedCheck.test_kit_json_protected) ... ok
+test_protected_fails_and_operator_warns (test_v2.ProtectedCheck.test_protected_fails_and_operator_warns) ... ok
+test_kit_region_only_change_passes (test_v2.RolesCheck.test_kit_region_only_change_passes) ... ok
+test_living_doc_passes (test_v2.RolesCheck.test_living_doc_passes) ... ok
+test_operator_doc_edit_fails (test_v2.RolesCheck.test_operator_doc_edit_fails) ... ok
+test_operator_override_downgrades (test_v2.RolesCheck.test_operator_override_downgrades) ... ok
+test_public_doc_gate (test_v2.RolesCheck.test_public_doc_gate) ... ok
+test_in_scope_passes (test_v2.ScopeCheck.test_in_scope_passes) ... ok
+test_living_doc_exempt (test_v2.ScopeCheck.test_living_doc_exempt) ... ok
+test_new_test_for_scoped_module_allowed (test_v2.ScopeCheck.test_new_test_for_scoped_module_allowed) ... ok
+test_out_of_scope_fails_with_session (test_v2.ScopeCheck.test_out_of_scope_fails_with_session) ... ok
+test_range_without_session_warns (test_v2.ScopeCheck.test_range_without_session_warns) ... ok
+test_adapter_texts_are_pointers (test_v2.UnitTests.test_adapter_texts_are_pointers) ... ok
+test_agents_upsert_idempotent_and_preserves_operator_text (test_v2.UnitTests.test_agents_upsert_idempotent_and_preserves_operator_text) ... ok
+test_docgate (test_v2.UnitTests.test_docgate) ... ok
+test_filetree_parse_and_translation_staleness (test_v2.UnitTests.test_filetree_parse_and_translation_staleness) ... ok
+test_globs (test_v2.UnitTests.test_globs) ... ok
+test_normalize_impact_hops_and_weak_docs (test_v2.UnitTests.test_normalize_impact_hops_and_weak_docs) ... ok
+test_regressions (test_v2.UnitTests.test_regressions) ... ok
+test_remote_parsing (test_v2.UnitTests.test_remote_parsing) ... ok
+test_role_convention_and_override (test_v2.UnitTests.test_role_convention_and_override) ... ok
+test_role_from_metadata_header (test_v2.UnitTests.test_role_from_metadata_header) ... ok
+
+----------------------------------------------------------------------
+Ran 49 tests in 1.905s
+
+OK
+exit=0
