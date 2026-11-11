@@ -1,5 +1,14 @@
 # somnus-kit: repo setup kit, design and prototype report
 
+> **Status: superseded (2026-11-11).** This documents the Round 1 prototype at
+> `/workspace/work/ghdev/research/setup-kit/` (host: Linux arm64, somnus-kit 0.1.0).
+> The current system is **somnus-kit 0.2.0** in this directory: see `README.md`,
+> `pyproject.toml`, and the v2 trial evidence in `evidence/trial/` (42/42 expectations
+> on fresh SDGC and somnus-debug copies, plus `trial_v2.sh`). Paths in this report
+> (`/workspace/work/...`, `targets/sdgc-run/`) no longer exist. Kept as the historical
+> record of the design decisions and the upstream findings in §4; the kit now
+> implements those workarounds directly (see `README.md` -> "Libraries used").
+
 Date: 2026-11-10 (America/Chicago). Host: sandbox Linux **arm64**, Node 22.23.3, Python 3.12.15, **no C compiler**.
 Scope: everything lives under `/workspace/work/ghdev/research/setup-kit/`. Nothing was pushed. No global
 registry was touched: Plot and somnus-metadata ran with `PLOT_HOME` / `SOMNUS_HOME` under `.isohome/`.
